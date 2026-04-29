@@ -30,7 +30,7 @@ const AdminSidebar = ({ collapsed, setCollapsed }) => {
           <div className="bg-white/10 p-2 rounded-xl flex-shrink-0">
             <GiTropicalFish className="w-5 h-5 text-aqua-300" />
           </div>
-          {!collapsed && <span className="font-display font-bold text-lg">AquaMart<span className="text-aqua-300 text-xs ml-1 font-normal">Admin</span></span>}
+          {!collapsed && <span className="font-display font-bold text-lg">AasaiPet<span className="text-aqua-300 text-xs ml-1 font-normal">Admin</span></span>}
         </div>
 
         {/* Nav */}

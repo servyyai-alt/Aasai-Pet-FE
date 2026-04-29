@@ -4,6 +4,8 @@ import { useAuth } from '../../context/AuthContext';
 import { useCart } from '../../context/CartContext';
 import { FiShoppingCart, FiUser, FiMenu, FiX, FiSearch, FiLogOut, FiPackage, FiSettings } from 'react-icons/fi';
 import { GiTropicalFish } from 'react-icons/gi';
+import logo from '../../assets/logo.png';
+import company_logo from '../../assets/company_logo.png';
 
 const Navbar = () => {
   const { user, logout } = useAuth();
@@ -37,10 +39,11 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 group">
-            <div className="bg-ocean-gradient p-2 rounded-xl text-white group-hover:scale-110 transition-transform">
-              <GiTropicalFish className="w-6 h-6" />
+            <div className="rounded-xl text-white group-hover:scale-110 transition-transform">
+              <img src={logo} alt="AasaiPet Logo" className="w-13 h-11" />
             </div>
-            <span className="font-display font-bold text-xl text-ocean-900">Aasai<span className="text-aqua-500">Pet</span></span>
+            {/* <span className="font-display font-bold text-xl text-ocean-900">Aasai<span className="text-aqua-500">Pet</span></span> */}
+            <img src={company_logo} alt="AasaiPet Logo" className="w-30 h-8 hidden sm:block" />
           </Link>
 
           {/* Search Bar - Desktop */}

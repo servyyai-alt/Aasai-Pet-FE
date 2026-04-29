@@ -25,7 +25,7 @@ const OrderSuccessPage = () => {
             </div>
           </div>
           <h1 className="font-display text-3xl font-bold text-ocean-900 mb-2">Order Placed! 🎉</h1>
-          <p className="text-ocean-500 mb-6">Thank you for shopping with AquaMart! Your aquatic goodies are on their way.</p>
+          <p className="text-ocean-500 mb-6">Thank you for shopping with AasaiPet! Your aquatic goodies are on their way.</p>
 
           {order && (
             <div className="bg-ocean-50 rounded-2xl p-4 text-left mb-6 text-sm">

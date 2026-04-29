@@ -6,12 +6,12 @@ const CartContext = createContext();
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState(() => {
     try {
-      return JSON.parse(localStorage.getItem('aquamart_cart')) || [];
+      return JSON.parse(localStorage.getItem('AasaiPet_cart')) || [];
     } catch { return []; }
   });
 
   useEffect(() => {
-    localStorage.setItem('aquamart_cart', JSON.stringify(cartItems));
+    localStorage.setItem('AasaiPet_cart', JSON.stringify(cartItems));
   }, [cartItems]);
 
   const addToCart = (product, quantity = 1) => {

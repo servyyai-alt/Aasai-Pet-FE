@@ -39,7 +39,7 @@ const RegisterPage = () => {
               <GiTropicalFish className="w-8 h-8 text-white" />
             </div>
             <h1 className="font-display text-3xl font-bold text-ocean-900">Create Account</h1>
-            <p className="text-ocean-400 mt-1">Join the AquaMart family</p>
+            <p className="text-ocean-400 mt-1">Join the AasaiPet family</p>
           </div>
 
           {error && <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl mb-4 text-sm">{error}</div>}

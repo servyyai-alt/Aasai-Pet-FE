@@ -43,7 +43,7 @@ const CheckoutPage = () => {
         key: process.env.REACT_APP_RAZORPAY_KEY_ID || '',
         amount: rzpOrder.amount,
         currency: 'INR',
-        name: 'AquaMart',
+        name: 'AasaiPet',
         description: 'Aquatic Products Purchase',
         order_id: rzpOrder.orderId,
         handler: async (response) => {

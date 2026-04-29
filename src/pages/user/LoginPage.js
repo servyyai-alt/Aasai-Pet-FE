@@ -25,7 +25,8 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-ocean-gradient flex items-center justify-center p-4">
+    <div className="min-h-screen bg-ocean-gradient flex items-center justify-center p-4"
+    style={{ background:'linear-gradient(135deg,#1a0533 0%,#2d1b69 30%,#0d3b5e 65%,#0b4535 100%)' }}>
       <div className="w-full max-w-md">
         <div className="bg-white rounded-3xl shadow-2xl p-8 animate-slide-up">
           <div className="text-center mb-8">
@@ -33,7 +34,7 @@ const LoginPage = () => {
               <GiTropicalFish className="w-8 h-8 text-white" />
             </div>
             <h1 className="font-display text-3xl font-bold text-ocean-900">Welcome Back</h1>
-            <p className="text-ocean-400 mt-1">Sign in to your AquaMart account</p>
+            <p className="text-ocean-400 mt-1">Sign in to your AasaiPet account</p>
           </div>
 
           {error && <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl mb-4 text-sm">{error}</div>}

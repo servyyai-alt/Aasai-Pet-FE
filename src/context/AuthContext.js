@@ -9,7 +9,7 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const stored = localStorage.getItem('aquamart_user');
+    const stored = localStorage.getItem('AasaiPet_user');
     if (stored) {
       const parsed = JSON.parse(stored);
       setUser(parsed);
@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     const { data } = await axios.post('/api/auth/login', { email, password });
     setUser(data);
-    localStorage.setItem('aquamart_user', JSON.stringify(data));
+    localStorage.setItem('AasaiPet_user', JSON.stringify(data));
     axios.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
     toast.success(`Welcome back, ${data.name}!`);
     return data;
@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }) => {
   const register = async (name, email, password, phone) => {
     const { data } = await axios.post('/api/auth/register', { name, email, password, phone });
     setUser(data);
-    localStorage.setItem('aquamart_user', JSON.stringify(data));
+    localStorage.setItem('AasaiPet_user', JSON.stringify(data));
     axios.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
     toast.success('Account created successfully!');
     return data;
@@ -38,14 +38,14 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem('aquamart_user');
+    localStorage.removeItem('AasaiPet_user');
     delete axios.defaults.headers.common['Authorization'];
     toast.success('Logged out');
   };
 
   const updateUser = (data) => {
     setUser(data);
-    localStorage.setItem('aquamart_user', JSON.stringify(data));
+    localStorage.setItem('AasaiPet_user', JSON.stringify(data));
     axios.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
   };
 

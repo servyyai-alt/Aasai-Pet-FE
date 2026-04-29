@@ -15,6 +15,12 @@
   }
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
+
+.font-display {
+  font-family: 'Playfair Display', serif;
+}
+
 @layer components {
   .btn-primary {
     @apply bg-gradient-to-r from-ocean-600 to-aqua-500 text-white px-6 py-3 rounded-xl font-semibold
