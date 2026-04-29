@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: #f0f9ff;
+    color: #0c4a6e;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Syne', sans-serif;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-gradient-to-r from-ocean-600 to-aqua-500 text-white px-6 py-3 rounded-xl font-semibold
+    hover:from-ocean-700 hover:to-aqua-600 transition-all duration-300 shadow-lg hover:shadow-ocean-500/30
+    hover:-translate-y-0.5 active:translate-y-0;
+  }
+  .btn-secondary {
+    @apply bg-white text-ocean-700 border-2 border-ocean-200 px-6 py-3 rounded-xl font-semibold
+    hover:bg-ocean-50 hover:border-ocean-400 transition-all duration-300;
+  }
+  .btn-danger {
+    @apply bg-red-500 text-white px-4 py-2 rounded-lg font-medium hover:bg-red-600 transition-colors;
+  }
+  .card {
+    @apply bg-white rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 border border-ocean-100;
+  }
+  .input-field {
+    @apply w-full px-4 py-3 border-2 border-ocean-100 rounded-xl focus:outline-none focus:border-ocean-400
+    bg-white text-ocean-900 placeholder-ocean-300 transition-colors;
+  }
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+  .section-title {
+    @apply font-display text-3xl font-bold text-ocean-900;
+  }
+  .nav-link {
+    @apply text-ocean-700 hover:text-ocean-500 font-medium transition-colors;
+  }
+  .skeleton {
+    @apply bg-gradient-to-r from-ocean-100 via-ocean-50 to-ocean-100 bg-[length:200%_100%] animate-shimmer rounded;
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #e0f2fe; }
+::-webkit-scrollbar-thumb { background: #0ea5e9; border-radius: 3px; }
+
+/* Water wave decoration */
+.wave-decoration::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 80'%3E%3Cpath fill='%23f0f9ff' fill-opacity='1' d='M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z'/%3E%3C/svg%3E") no-repeat bottom;
+  background-size: cover;
+}
