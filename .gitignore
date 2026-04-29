@@ -1,19 +1,31 @@
 # Dependencies
 node_modules/
-client/node_modules/
-server/node_modules/
+
+# Package manager caches
+node_modules/.cache/
+.cache/
+.parcel-cache/
+.vite/
+.turbo/
 
 # Environment files
 .env
-server/.env
-client/.env
+.env.*
+!.env.example
 
 # Build output
-client/build/
+build/
+dist/
+out/
+.next/
+coverage/
 
 # Logs
 *.log
 npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
 
 # OS
 .DS_Store
@@ -22,4 +34,3 @@ Thumbs.db
 # IDE
 .vscode/
 .idea/
-
