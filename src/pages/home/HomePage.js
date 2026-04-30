@@ -4,6 +4,7 @@ import { fetchFeaturedProducts, fetchCategories } from '../../utils/api';
 import ProductCard from '../../components/common/ProductCard';
 import { FiArrowRight, FiTruck, FiShield, FiStar, FiRefreshCw, FiHeart } from 'react-icons/fi';
 
+
 /* ─── Floating background pets ─── */
 const FLOATING_PETS = ['🐶','🐱','🐠','🕊️','🐰','🦜','🐹','🐢','🦎','🐈','🦮','🐡'];
 
@@ -429,6 +430,8 @@ const HomePage = () => {
             </div>
           </div>
         </section>
+
+
 
       </div>
     </>

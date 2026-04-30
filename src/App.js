@@ -22,6 +22,7 @@ import AdminAnalytics from './pages/admin/AdminAnalytics';
 import ProtectedRoute from './components/common/ProtectedRoute';
 import AdminRoute from './components/common/AdminRoute';
 import NotFoundPage from './pages/home/NotFoundPage';
+import WhatsAppFloat from './components/common/WhatsappFloat';
 
 function App() {
   return (
@@ -63,6 +64,7 @@ function App() {
                 </Routes>
               </main>
               <Footer />
+              <WhatsAppFloat />
             </>
           } />
         </Routes>
