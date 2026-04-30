@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const api = axios.create({ baseURL: '/api' });
+const baseURL = process.env.REACT_APP_API_BASE_URL || '/api';
+const api = axios.create({ baseURL });
 
 api.interceptors.request.use(config => {
   const user = JSON.parse(localStorage.getItem('AasaiPet_user') || '{}');
