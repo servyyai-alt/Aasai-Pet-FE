@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { GiTropicalFish } from 'react-icons/gi';
 import { FiMail, FiLock, FiUser, FiPhone, FiEye, FiEyeOff } from 'react-icons/fi';
+import logo from '../../assets/logo.png';
+import company_logo from '../../assets/company_logo.png';
 
 const RegisterPage = () => {
   const { register } = useAuth();
@@ -35,9 +37,17 @@ const RegisterPage = () => {
       <div className="w-full max-w-md">
         <div className="bg-white rounded-3xl shadow-2xl p-8 animate-slide-up">
           <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center bg-ocean-gradient p-3 rounded-2xl mb-4">
-              <GiTropicalFish className="w-8 h-8 text-white" />
-            </div>
+             <Link to="/" className="flex items-center gap-2 group justify-center mb-4 p-1 rounded-xl">
+                          <div className="rounded-xl text-white group-hover:scale-110 transition-transform">
+                            <img src={logo} alt="AasaiPet Logo" className="w-13 h-11" />
+                          </div>
+                          {/* <span className="font-display font-bold text-xl text-ocean-900">Aasai<span className="text-aqua-500">Pet</span></span> */}
+                          <img
+                            src={company_logo}
+                            alt="AasaiPet Logo"
+                            className="w-30 h-8 hidden sm:block"
+                          />
+                        </Link>
             <h1 className="font-display text-3xl font-bold text-ocean-900">Create Account</h1>
             <p className="text-ocean-400 mt-1">Join the AasaiPet family</p>
           </div>
