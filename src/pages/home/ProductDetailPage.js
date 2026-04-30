@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { fetchProduct } from '../../utils/api';
+import api, { fetchProduct } from '../../utils/api';
 import { useCart } from '../../context/CartContext';
 import { FiShoppingCart, FiStar, FiMinus, FiPlus, FiArrowLeft, FiCheck } from 'react-icons/fi';
 import { GiTropicalFish } from 'react-icons/gi';
-import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useAuth } from '../../context/AuthContext';
 
@@ -27,7 +26,7 @@ const ProductDetailPage = () => {
     if (!review.comment.trim()) return toast.error('Please write a comment');
     setSubmittingReview(true);
     try {
-      await axios.post(`/api/products/${id}/reviews`, review);
+      await api.post(`/products/${id}/reviews`, review);
       toast.success('Review submitted!');
       const { data } = await fetchProduct(id);
       setProduct(data);

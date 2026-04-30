@@ -1,6 +1,10 @@
 import axios from 'axios';
 
-const baseURL = process.env.REACT_APP_API_BASE_URL || '/api';
+const fallbackBaseURL =
+  process.env.NODE_ENV === 'production'
+    ? 'https://aasai-pet-be.onrender.com/api'
+    : '/api';
+const baseURL = process.env.REACT_APP_API_BASE_URL || fallbackBaseURL;
 const api = axios.create({ baseURL });
 
 api.interceptors.request.use(config => {

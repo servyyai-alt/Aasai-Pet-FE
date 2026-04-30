@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { fetchMyOrders } from '../../utils/api';
-import axios from 'axios';
+import api, { fetchMyOrders } from '../../utils/api';
 import toast from 'react-hot-toast';
 import { FiUser, FiPackage, FiSettings, FiLogOut, FiEdit2, FiSave } from 'react-icons/fi';
 import { GiTropicalFish } from 'react-icons/gi';
@@ -18,11 +17,11 @@ const ProfileSection = () => {
   const handleSave = async () => {
     setLoading(true);
     try {
-      const { data } = await axios.put('/api/auth/profile', form);
+      const { data } = await api.put('/auth/profile', form);
       updateUser(data);
       setEditing(false);
       toast.success('Profile updated!');
-    } catch (e) { toast.error(e.response?.data?.message || 'Update failed'); }
+    } catch (e) { toast.error(e.message || 'Update failed'); }
     finally { setLoading(false); }
   };
 
