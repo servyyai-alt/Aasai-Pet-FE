@@ -329,7 +329,7 @@ const HomePage = () => {
             <div className="flex items-end justify-between mb-10">
               <div>
                 <p className="text-pink-500 font-bold text-xs uppercase tracking-widest mb-1">Handpicked For You</p>
-                <h2 className="font-display font-black lg:text-4xl text-3xl text-gray-900">Featured Products</h2>
+                <h2 className="font-display font-black lg:text-4xl text-2xl text-gray-900">Featured Products</h2>
               </div>
               <Link to="/products" className="flex items-center gap-1 text-sm font-semibold text-violet-600 hover:text-violet-400 transition-colors">
                 View all <FiArrowRight className="w-4 h-4" />
@@ -342,7 +342,7 @@ const HomePage = () => {
                 ))}
               </div>
             ) : featured.length > 0 ? (
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {featured.map(p => <ProductCard key={p._id} product={p} />)}
               </div>
             ) : (
