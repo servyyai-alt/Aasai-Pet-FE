@@ -76,10 +76,7 @@ const Footer = () => (
             {[
               ["/", "Home"],
               ["/products", "Shop All"],
-              ["/products?category=dogs", "Dogs"],
-              ["/products?category=cats", "Cats"],
-              ["/products?category=birds", "Birds"],
-              ["/products?category=fish", "Fish"],
+              
             ].map(([to, label]) => (
               <li key={to}>
                 <Link to={to} className="hover:text-white transition-colors">

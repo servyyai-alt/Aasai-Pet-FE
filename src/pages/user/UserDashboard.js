@@ -129,7 +129,7 @@ const UserDashboard = () => {
   const navItems = [
     { path: '/dashboard', label: 'Profile', icon: FiUser, exact: true },
     { path: '/dashboard/orders', label: 'Orders', icon: FiPackage },
-    { path: '/dashboard/settings', label: 'Settings', icon: FiSettings },
+    // { path: '/dashboard/settings', label: 'Settings', icon: FiSettings },
   ];
 
   return (
