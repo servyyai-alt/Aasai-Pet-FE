@@ -43,7 +43,7 @@ const Navbar = () => {
               <img src={logo} alt="AasaiPet Logo" className="w-13 h-11" />
             </div>
             {/* <span className="font-display font-bold text-xl text-ocean-900">Aasai<span className="text-aqua-500">Pet</span></span> */}
-            <img src={company_logo} alt="AasaiPet Logo" className="w-30 h-8 hidden sm:block" />
+            <img src={company_logo} alt="AasaiPet Logo" className="w-30 h-8" />
           </Link>
 
           {/* Search Bar - Desktop */}

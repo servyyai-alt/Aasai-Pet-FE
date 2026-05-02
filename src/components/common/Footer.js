@@ -1,14 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { FiMail, FiPhone, FiMapPin, FiInstagram, FiThreads, FiYoutube } from "react-icons/fi";
+import {
+  FiMail,
+  FiPhone,
+  FiMapPin,
+  FiInstagram,
+  FiThreads,
+  FiYoutube,
+} from "react-icons/fi";
 import logo from "../../assets/logo.png";
 import company_logo from "../../assets/company_logo.png";
 import { FaThreads } from "react-icons/fa6";
 
-
 const Footer = () => (
   <footer
-    className="bg-ocean-gradient text-white mt-16 relative wave-decoration"
+    className="bg-ocean-gradient text-white mt-16 relative sm:wave-decoration"
     style={{
       background:
         "linear-gradient(135deg,#1a0533 0%,#2d1b69 30%,#0d3b5e 65%,#0b4535 100%)",
@@ -19,8 +25,8 @@ const Footer = () => (
         {/* Brand */}
         <div>
           <div
-            className="flex items-center gap-2 mb-4 inline-block p-1 rounded-xl group"
-            style={{ background: "linear-gradient(135deg,#f9a8d4,#c4b5fd)" }}
+            className="flex items-center gap-2 mb-4 inline-block justify-center sm:justify-start p-1 rounded-xl group"
+            style={{  background: "linear-gradient(135deg,#f9a8d4 0%,#c4b5fd 100%)" }}
           >
             <div className="rounded-xl text-white group-hover:scale-110 transition-transform">
               <img src={logo} alt="AasaiPet Logo" className="w-13 h-11" />
@@ -28,12 +34,12 @@ const Footer = () => (
             <img
               src={company_logo}
               alt="AasaiPet Logo"
-              className="w-30 h-8 hidden sm:block"
+              className="w-30 h-8 object-contain group-hover:scale-105 transition-transform "
             />
           </div>
           <p className="text-ocean-200 text-sm leading-relaxed mb-4">
-            Your one-stop destination for premium pets, food, accessories,
-            and care products.
+            Your one-stop destination for premium pets, food, accessories, and
+            care products.
           </p>
           <div className="flex gap-3">
             <a
@@ -109,8 +115,10 @@ const Footer = () => (
           <h3 className="font-display font-bold text-lg mb-4">Contact Us</h3>
           <ul className="space-y-3 text-ocean-200 text-sm">
             <li className="flex items-start gap-2">
-              <FiMapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
-              <span>123 AasaiPet Street, Chennai, Tamil Nadu 600001</span>
+              <FiMapPin className="w-4 h-4 mt-3 flex-shrink-0" />
+              <span>
+                சங்கனூர் நல்லாம்பாளையம் ரோடு கதவு எண் 3/1-3 கோயமுத்தூர் 641027
+              </span>
             </li>
             <li className="flex items-center gap-2">
               <FiPhone className="w-4 h-4" />

@@ -167,7 +167,7 @@ const HomePage = () => {
 
         {/* ─── HERO ─── */}
         <section
-          className="relative min-h-[90vh] flex items-center overflow-hidden bg-ocean-gradient"
+          className="relative lg:min-h-[90vh] flex items-center overflow-hidden bg-ocean-gradient"
           style={{ background:'linear-gradient(135deg,#1a0533 0%,#2d1b69 30%,#0d3b5e 65%,#0b4535 100%)' }}>
 
           {/* floating pets bg */}
@@ -178,7 +178,7 @@ const HomePage = () => {
             style={{ background:'radial-gradient(ellipse 65% 55% at 62% 38%,rgba(139,92,246,.2) 0%,transparent 68%)' }} />
 
           {/* bottom wave */}
-          <div className="absolute bottom-0 left-0 right-0 h-20 pointer-events-none"
+          <div className="absolute bottom-0 hidden sm:block left-0 right-0 h-20 pointer-events-none"
             style={{ background:"url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 80'%3E%3Cpath fill='%23f5f3ff' d='M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z'/%3E%3C/svg%3E\") no-repeat bottom/cover" }} />
 
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 w-full">
@@ -329,7 +329,7 @@ const HomePage = () => {
             <div className="flex items-end justify-between mb-10">
               <div>
                 <p className="text-pink-500 font-bold text-xs uppercase tracking-widest mb-1">Handpicked For You</p>
-                <h2 className="font-display font-black text-4xl text-gray-900">Featured Products</h2>
+                <h2 className="font-display font-black lg:text-4xl text-3xl text-gray-900">Featured Products</h2>
               </div>
               <Link to="/products" className="flex items-center gap-1 text-sm font-semibold text-violet-600 hover:text-violet-400 transition-colors">
                 View all <FiArrowRight className="w-4 h-4" />

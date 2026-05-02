@@ -6,12 +6,12 @@ import { FiFilter, FiSearch, FiX, FiChevronDown } from 'react-icons/fi';
 import { GiTropicalFish } from 'react-icons/gi';
 
 const ProductsPage = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
   const [total, setTotal] = useState(0);
-  const [pages, setPages] = useState(1);
   const [showFilters, setShowFilters] = useState(false);
 
   const [filters, setFilters] = useState({
@@ -20,7 +20,6 @@ const ProductsPage = () => {
     sort: searchParams.get('sort') || '',
     minPrice: '',
     maxPrice: '',
-    page: 1,
   });
 
   useEffect(() => {
@@ -32,17 +31,16 @@ const ProductsPage = () => {
       setLoading(true);
       try {
         const params = Object.fromEntries(Object.entries(filters).filter(([, v]) => v));
-        const { data } = await fetchProducts(params);
+        const { data } = await fetchProducts({ ...params, limit: 12, skip: 0 });
         setProducts(data.products);
         setTotal(data.total);
-        setPages(data.pages);
       } catch (e) { console.error(e); }
       finally { setLoading(false); }
     };
     load();
   }, [filters]);
 
-  const updateFilter = (key, value) => setFilters(f => ({ ...f, [key]: value, page: 1 }));
+  const updateFilter = (key, value) => setFilters(f => ({ ...f, [key]: value }));
 
   const sortOptions = [
     { value: '', label: 'Default' },
@@ -51,6 +49,20 @@ const ProductsPage = () => {
     { value: 'rating', label: 'Top Rated' },
     { value: 'popular', label: 'Most Popular' },
   ];
+
+  const canLoadMore = !loading && products.length > 0 && products.length < total;
+
+  const loadMore = async () => {
+    if (loadingMore || !canLoadMore) return;
+    setLoadingMore(true);
+    try {
+      const params = Object.fromEntries(Object.entries(filters).filter(([, v]) => v));
+      const { data } = await fetchProducts({ ...params, limit: 15, skip: products.length });
+      setProducts(prev => [...prev, ...(data.products || [])]);
+      if (typeof data.total === 'number') setTotal(data.total);
+    } catch (e) { console.error(e); }
+    finally { setLoadingMore(false); }
+  };
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -65,13 +77,13 @@ const ProductsPage = () => {
         </button>
       </div>
 
-      <div className="flex gap-6">
+      <div className="sm:flex gap-6 transition-all duration-300">
         {/* Sidebar Filters */}
-        <aside className={`${showFilters ? 'block' : 'hidden'} md:block w-64 flex-shrink-0`}>
+        <aside className={`${showFilters ? 'block' : 'hidden'} md:block sm:w-64 flex-shrink-0 transition-all duration-500  ease-in-out`}>
           <div className="card p-5 sticky top-24">
             <div className="flex items-center justify-between mb-4">
               <h3 className="font-display font-bold text-ocean-900">Filters</h3>
-              <button onClick={() => setFilters({ search: '', category: '', sort: '', minPrice: '', maxPrice: '', page: 1 })}
+              <button onClick={() => setFilters({ search: '', category: '', sort: '', minPrice: '', maxPrice: '' })}
                 className="text-xs text-ocean-400 hover:text-red-400">Clear All</button>
             </div>
 
@@ -88,19 +100,20 @@ const ProductsPage = () => {
             </div>
 
             {/* Category */}
-            <div className="mb-5">
+            <div className="mb-5 ">
               <label className="block text-sm font-medium text-ocean-700 mb-2">Category</label>
               <div className="space-y-2">
                 <label className="flex items-center gap-2 cursor-pointer">
                   <input type="radio" name="cat" value="" checked={filters.category === ''} onChange={e => updateFilter('category', e.target.value)} className="accent-ocean-500" />
                   <span className="text-sm text-ocean-700">All Categories</span>
                 </label>
+                <div className='grid grid-cols-2 lg:grid-cols-1 gap-2 max-h-48 overflow-y-auto pr-1'>
                 {categories.map(c => (
                   <label key={c._id} className="flex items-center gap-2 cursor-pointer">
                     <input type="radio" name="cat" value={c._id} checked={filters.category === c._id} onChange={e => updateFilter('category', e.target.value)} className="accent-ocean-500" />
                     <span className="text-sm text-ocean-700">{c.name}</span>
                   </label>
-                ))}
+                ))}</div>
               </div>
             </div>
 
@@ -137,15 +150,15 @@ const ProductsPage = () => {
               <div className="grid grid-cols-2 lg:grid-cols-3 gap-5">
                 {products.map(p => <ProductCard key={p._id} product={p} />)}
               </div>
-              {/* Pagination */}
-              {pages > 1 && (
-                <div className="flex justify-center gap-2 mt-8">
-                  {[...Array(pages)].map((_, i) => (
-                    <button key={i} onClick={() => setFilters(f => ({ ...f, page: i + 1 }))}
-                      className={`w-10 h-10 rounded-xl font-medium transition-all ${filters.page === i + 1 ? 'bg-ocean-600 text-white' : 'bg-white text-ocean-600 hover:bg-ocean-50 border border-ocean-200'}`}>
-                      {i + 1}
-                    </button>
-                  ))}
+              {canLoadMore && (
+                <div className="flex justify-center mt-10">
+                  <button
+                    onClick={loadMore}
+                    disabled={loadingMore}
+                    className={`btn-secondary text-sm px-8 py-3 rounded-xl ${loadingMore ? 'opacity-60 cursor-not-allowed' : ''}`}
+                  >
+                    {loadingMore ? 'Loading...' : 'Load More'}
+                  </button>
                 </div>
               )}
             </>

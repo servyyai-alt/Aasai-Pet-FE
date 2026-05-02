@@ -52,7 +52,7 @@ const AdminSidebar = ({ collapsed, setCollapsed }) => {
             className="flex items-center gap-2 group justify-center mb-4 p-1 rounded-xl"
           >
             <div className="rounded-xl text-white bg-white group-hover:scale-110 transition-transform mt-3">
-              <img src={logo} alt="AasaiPet Logo" className="w-13 h-11" />
+              <img src={logo} alt="AasaiPet Logo" className={`${collapsed ? "w-6 h-6" : "w-12 h-11"}`} />
             </div>
             {/* <span className="font-display font-bold text-xl text-ocean-900">Aasai<span className="text-aqua-500">Pet</span></span> */}
             {/* <img
