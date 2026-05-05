@@ -23,7 +23,7 @@ const ProfileSection = () => {
       toast.success('Profile updated!');
     } catch (e) { toast.error(e.message || 'Update failed'); }
     finally { setLoading(false); }
-  };
+  }
 
   return (
     <div className="card p-6">

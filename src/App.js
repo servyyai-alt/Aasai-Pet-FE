@@ -5,6 +5,7 @@ import Footer from './components/common/Footer';
 import HomePage from './pages/home/HomePage';
 import ProductsPage from './pages/home/ProductsPage';
 import ProductDetailPage from './pages/home/ProductDetailPage';
+import GalleryDetailPage from './pages/home/GalleryDetailPage';
 import LoginPage from './pages/user/LoginPage';
 import RegisterPage from './pages/user/RegisterPage';
 import UserDashboard from './pages/user/UserDashboard';
@@ -19,6 +20,7 @@ import AdminOrders from './pages/admin/AdminOrders';
 import AdminUsers from './pages/admin/AdminUsers';
 import AdminCategories from './pages/admin/AdminCategories';
 import AdminAnalytics from './pages/admin/AdminAnalytics';
+import AdminGallery from './pages/admin/AdminGallery';
 import ProtectedRoute from './components/common/ProtectedRoute';
 import AdminRoute from './components/common/AdminRoute';
 import NotFoundPage from './pages/home/NotFoundPage';
@@ -41,6 +43,7 @@ function App() {
                 <Route path="/users" element={<AdminUsers />} />
                 <Route path="/categories" element={<AdminCategories />} />
                 <Route path="/analytics" element={<AdminAnalytics />} />
+                <Route path="/gallery" element={<AdminGallery />} />
               </Routes>
             </AdminRoute>
           } />
@@ -53,6 +56,7 @@ function App() {
                   <Route path="/" element={<HomePage />} />
                   <Route path="/products" element={<ProductsPage />} />
                   <Route path="/products/:id" element={<ProductDetailPage />} />
+                  <Route path="/gallery/:id" element={<GalleryDetailPage />} />
                   <Route path="/login" element={<LoginPage />} />
                   <Route path="/register" element={<RegisterPage />} />
                   <Route path="/cart" element={<CartPage />} />

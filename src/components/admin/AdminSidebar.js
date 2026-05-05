@@ -9,6 +9,7 @@ import {
   FiUsers,
   FiTag,
   FiBarChart2,
+  FiImage,
   FiLogOut,
   FiMenu,
   FiX,
@@ -20,6 +21,7 @@ import company_logo from "../../assets/company_logo.png";
 const navItems = [
   { path: "/admin", label: "Dashboard", icon: FiGrid, exact: true },
   { path: "/admin/products", label: "Products", icon: FiBox },
+  { path: "/admin/gallery", label: "Gallery", icon: FiImage },
   { path: "/admin/orders", label: "Orders", icon: FiShoppingBag },
   { path: "/admin/users", label: "Users", icon: FiUsers },
   { path: "/admin/categories", label: "Categories", icon: FiTag },

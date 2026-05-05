@@ -63,4 +63,11 @@ export const getRazorpayKey = () => api.get('/payment/key');
 export const createRazorpayOrder = (amount) => api.post('/payment/create-order', { amount });
 export const verifyPayment = (data) => api.post('/payment/verify', data);
 
+// Gallery
+export const fetchGalleryItems = () => api.get('/gallery');
+export const fetchGalleryItem = (id) => api.get(`/gallery/${id}`);
+export const createGalleryItem = (data) => api.post('/gallery', data);
+export const updateGalleryItem = (id, data) => api.put(`/gallery/${id}`, data);
+export const deleteGalleryItem = (id) => api.delete(`/gallery/${id}`);
+
 export default api;
