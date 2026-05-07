@@ -5,8 +5,8 @@ import {
   FiPhone,
   FiMapPin,
   FiInstagram,
-  FiThreads,
   FiYoutube,
+  FiShield,
 } from "react-icons/fi";
 import logo from "../../assets/logo.png";
 import company_logo from "../../assets/company_logo.png";
@@ -21,15 +21,18 @@ const Footer = () => (
     }}
   >
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-28">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
         {/* Brand */}
         <div>
           <div
             className="flex items-center gap-2 mb-4 inline-block justify-center sm:justify-start p-1 rounded-xl group"
-            style={{  background: "linear-gradient(135deg,#f9a8d4 0%,#c4b5fd 100%)" }}
+            style={{
+              background:
+                "linear-gradient(135deg,#f9a8d4 0%,#c4b5fd 100%)",
+            }}
           >
             <div className="rounded-xl text-white group-hover:scale-110 transition-transform">
-              <img src={logo} alt="AasaiPet Logo" className="w-13 h-11" />
+              {/* <img src={logo} alt="AasaiPet Logo" className="w-13 h-11" /> */}
             </div>
             <img
               src={company_logo}
@@ -41,6 +44,10 @@ const Footer = () => (
             Your one-stop destination for premium pets, food, accessories, and
             care products.
           </p>
+          <div className="flex items-center gap-2 text-ocean-200 text-xs mb-4">
+            <FiShield className="w-4 h-4" />
+            <span>Secure payments powered by Razorpay</span>
+          </div>
           <div className="flex gap-3">
             <a
               href="https://instagram.com/aasairajkumar"
@@ -76,7 +83,6 @@ const Footer = () => (
             {[
               ["/", "Home"],
               ["/products", "Shop All"],
-              
             ].map(([to, label]) => (
               <li key={to}>
                 <Link to={to} className="hover:text-white transition-colors">
@@ -107,6 +113,26 @@ const Footer = () => (
           </ul>
         </div>
 
+        {/* Legal (Razorpay-friendly) */}
+        <div>
+          <h3 className="font-display font-bold text-lg mb-4">Legal</h3>
+          <ul className="space-y-2 text-ocean-200 text-sm">
+            {[
+              ["/privacy-policy", "Privacy Policy"],
+              ["/terms", "Terms & Conditions"],
+              ["/shipping-policy", "Shipping Policy"],
+              ["/refund-policy", "Cancellation & Refund"],
+              ["/contact", "Contact Us"],
+            ].map(([to, label]) => (
+              <li key={to}>
+                <Link to={to} className="hover:text-white transition-colors">
+                  {label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
         {/* Contact */}
         <div>
           <h3 className="font-display font-bold text-lg mb-4">Contact Us</h3>
@@ -119,7 +145,7 @@ const Footer = () => (
             </li>
             <li className="flex items-center gap-2">
               <FiPhone className="w-4 h-4" />
-              <span>+91 91714 01515</span>
+              <span>+91 82205 39620</span>
             </li>
             <li className="flex items-center gap-2">
               <FiMail className="w-4 h-4" />
@@ -129,12 +155,24 @@ const Footer = () => (
         </div>
       </div>
 
-      <div className="border-t border-white/20 mt-10 pt-6 flex flex-col sm:flex-row justify-between items-center text-ocean-200 text-sm">
+      <div className="border-t border-white/20 mt-10 pt-6 flex flex-col sm:flex-row justify-between items-center text-ocean-200 text-sm text-center">
         <p>
           © {new Date().getFullYear()} AasaiPet. All rights reserved. Developed
           by Least Action Company
         </p>
-        <p className="mt-2 sm:mt-0">Built with 💙 for Pet enthusiasts</p>
+        <p className="mt-2 sm:mt-0">
+          <Link to="/privacy-policy" className="hover:text-white transition-colors">
+            Privacy
+          </Link>
+          <span className="mx-2 text-white/30">|</span>
+          <Link to="/terms" className="hover:text-white transition-colors">
+            Terms
+          </Link>
+          <span className="mx-2 text-white/30">|</span>
+          <Link to="/refund-policy" className="hover:text-white transition-colors">
+            Refunds
+          </Link>
+        </p>
       </div>
     </div>
   </footer>

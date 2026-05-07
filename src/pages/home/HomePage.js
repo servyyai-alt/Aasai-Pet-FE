@@ -286,7 +286,7 @@ const HomePage = () => {
       <div className="overflow-x-hidden">
         {/* ─── HERO ─── */}
         <section
-          className="relative lg:min-h-[90vh] flex items-center overflow-hidden bg-ocean-gradient"
+          className="relative min-h-[90vh] flex items-center overflow-hidden bg-ocean-gradient"
           style={{
             background:
               "linear-gradient(135deg,#1a0533 0%,#2d1b69 30%,#0d3b5e 65%,#0b4535 100%)",

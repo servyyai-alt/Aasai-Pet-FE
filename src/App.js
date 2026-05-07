@@ -25,11 +25,18 @@ import ProtectedRoute from './components/common/ProtectedRoute';
 import AdminRoute from './components/common/AdminRoute';
 import NotFoundPage from './pages/home/NotFoundPage';
 import WhatsAppFloat from './components/common/WhatsappFloat';
+import ScrollToTop from './components/common/ScrollToTop';
+import PrivacyPolicy from './pages/legal/PrivacyPolicy';
+import TermsAndConditions from './pages/legal/TermsAndConditions';
+import ShippingPolicy from './pages/legal/ShippingPolicy';
+import RefundPolicy from './pages/legal/RefundPolicy';
+import ContactPage from './pages/legal/ContactPage';
 
 function App() {
   return (
     <Router>
       <div className="min-h-screen flex flex-col bg-ocean-50">
+        <ScrollToTop />
         <Routes>
           {/* Admin Routes - No Navbar/Footer */}
           <Route path="/admin/*" element={
@@ -64,6 +71,11 @@ function App() {
                   <Route path="/order-success/:id" element={<ProtectedRoute><OrderSuccessPage /></ProtectedRoute>} />
                   <Route path="/orders/:id" element={<ProtectedRoute><OrderDetailPage /></ProtectedRoute>} />
                   <Route path="/dashboard/*" element={<ProtectedRoute><UserDashboard /></ProtectedRoute>} />
+                  <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+                  <Route path="/terms" element={<TermsAndConditions />} />
+                  <Route path="/shipping-policy" element={<ShippingPolicy />} />
+                  <Route path="/refund-policy" element={<RefundPolicy />} />
+                  <Route path="/contact" element={<ContactPage />} />
                   <Route path="*" element={<NotFoundPage />} />
                 </Routes>
               </main>
