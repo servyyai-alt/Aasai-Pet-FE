@@ -19,7 +19,7 @@ const AdminProductForm = () => {
   const [tag, setTag] = useState('');
 
   const [form, setForm] = useState({
-    name: '', description: '', price: '', discountPrice: '', category: '',
+    name: '', description: '', price: '', discountPrice: '', shippingCharge: '', category: '',
     stock: '', brand: '', isFeatured: false, isActive: true,
     tags: [], specifications: [],
   });
@@ -29,7 +29,20 @@ const AdminProductForm = () => {
     if (isEdit) {
       fetchProduct(id).then(r => {
         const p = r.data;
-        setForm({ name: p.name, description: p.description, price: p.price, discountPrice: p.discountPrice || '', category: p.category?._id || '', stock: p.stock, brand: p.brand || '', isFeatured: p.isFeatured, isActive: p.isActive, tags: p.tags || [], specifications: p.specifications || [] });
+        setForm({
+          name: p.name,
+          description: p.description,
+          price: p.price,
+          discountPrice: p.discountPrice || '',
+          shippingCharge: p.shippingCharge ?? 0,
+          category: p.category?._id || '',
+          stock: p.stock,
+          brand: p.brand || '',
+          isFeatured: p.isFeatured,
+          isActive: p.isActive,
+          tags: p.tags || [],
+          specifications: p.specifications || []
+        });
         setImagePreviews(p.images?.map(i => ({ url: i.url, existing: true, id: i._id })) || []);
       }).catch(console.error);
     }
@@ -201,19 +214,23 @@ const AdminProductForm = () => {
             </div>
 
             {/* Category & Settings */}
-            <div className="bg-white/5 border border-white/10 rounded-2xl p-5 space-y-4">
-              <h3 className="font-display font-bold text-white mb-2">Settings</h3>
-              <div>
-                <label className="block text-xs font-medium text-white/50 mb-1.5 uppercase tracking-wide">Category *</label>
-                <select className={`${inputClass} appearance-none`} value={form.category} onChange={e => setForm(f => ({ ...f, category: e.target.value }))} required>
-                  <option value="">Select category</option>
-                  {categories.map(c => <option key={c._id} value={c._id} className="bg-ocean-900">{c.name}</option>)}
-                </select>
-              </div>
-              <label className="flex items-center gap-3 cursor-pointer">
-                <div className={`w-10 h-6 rounded-full transition-colors relative ${form.isFeatured ? 'bg-aqua-500' : 'bg-white/20'}`} onClick={() => setForm(f => ({ ...f, isFeatured: !f.isFeatured }))}>
-                  <div className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-all ${form.isFeatured ? 'left-5' : 'left-1'}`} />
-                </div>
+	            <div className="bg-white/5 border border-white/10 rounded-2xl p-5 space-y-4">
+	              <h3 className="font-display font-bold text-white mb-2">Settings</h3>
+	              <div>
+	                <label className="block text-xs font-medium text-white/50 mb-1.5 uppercase tracking-wide">Category *</label>
+	                <select className={`${inputClass} appearance-none`} value={form.category} onChange={e => setForm(f => ({ ...f, category: e.target.value }))} required>
+	                  <option value="">Select category</option>
+	                  {categories.map(c => <option key={c._id} value={c._id} className="bg-ocean-900">{c.name}</option>)}
+	                </select>
+	              </div>
+	              <div>
+	                <label className="block text-xs font-medium text-white/50 mb-1.5 uppercase tracking-wide">Shipping Charge (₹)</label>
+	                <input type="number" className={inputClass} placeholder="0" min="0" value={form.shippingCharge} onChange={e => setForm(f => ({ ...f, shippingCharge: e.target.value }))} />
+	              </div>
+	              <label className="flex items-center gap-3 cursor-pointer">
+	                <div className={`w-10 h-6 rounded-full transition-colors relative ${form.isFeatured ? 'bg-aqua-500' : 'bg-white/20'}`} onClick={() => setForm(f => ({ ...f, isFeatured: !f.isFeatured }))}>
+	                  <div className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-all ${form.isFeatured ? 'left-5' : 'left-1'}`} />
+	                </div>
                 <span className="text-white/70 text-sm">Featured Product</span>
               </label>
               <label className="flex items-center gap-3 cursor-pointer">

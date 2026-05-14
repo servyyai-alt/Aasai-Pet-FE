@@ -7,10 +7,11 @@ import toast from 'react-hot-toast';
 import { FiCreditCard, FiMapPin, FiChevronRight } from 'react-icons/fi';
 
 const CheckoutPage = () => {
-  const { cartItems, cartTotal, clearCart } = useCart();
+  const { cartItems, cartTotal, cartShippingTotal, clearCart } = useCart();
   const { user } = useAuth();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
   const [step, setStep] = useState(1);
   const [address, setAddress] = useState({
     name: user?.name || '', phone: user?.phone || '',
@@ -19,25 +20,43 @@ const CheckoutPage = () => {
     country: 'India',
   });
 
-  const shipping = cartTotal >= 999 ? 0 : 99;
+  const shipping = cartShippingTotal;
   const tax = Math.round(cartTotal * 0.18);
   const totalPrice = cartTotal + shipping + tax;
 
   const handleAddressChange = (e) => setAddress(a => ({ ...a, [e.target.name]: e.target.value }));
 
+  const getErrorMessage = (err) => {
+    const raw = (err && typeof err === 'object' && 'message' in err) ? err.message : String(err || '');
+    const msg = (raw || '').toString().trim();
+    if (!msg || msg === 'Network Error') return 'Unable to reach server. Please check your internet connection and try again.';
+    if (/jwt/i.test(msg) || /not authorized/i.test(msg) || /unauthorized/i.test(msg)) return 'Your session expired. Please login again and retry.';
+    return msg;
+  };
+
   const handlePayment = async () => {
     setLoading(true);
+    setErrorMsg('');
     try {
+      if (!cartItems || cartItems.length === 0) {
+        throw new Error('Your cart is empty. Please add items before checkout.');
+      }
+      const requiredFields = ['name', 'phone', 'street', 'city', 'state', 'pincode'];
+      const missing = requiredFields.filter(f => !String(address?.[f] || '').trim());
+      if (missing.length > 0) {
+        setStep(1);
+        throw new Error('Please complete your shipping address (all fields are required).');
+      }
+
       // Create backend order
       const orderData = {
-        orderItems: cartItems.map(i => ({ product: i._id, name: i.name, image: i.images?.[0]?.url, price: i.discountPrice || i.price, quantity: i.quantity })),
+        orderItems: cartItems.map(i => ({ product: i._id, quantity: i.quantity })),
         shippingAddress: address, paymentMethod: 'razorpay',
-        itemsPrice: cartTotal, taxPrice: tax, shippingPrice: shipping, totalPrice,
       };
       const { data: order } = await createOrder(orderData);
 
       // Create Razorpay order
-      const { data: rzpOrder } = await createRazorpayOrder(totalPrice);
+      const { data: rzpOrder } = await createRazorpayOrder(order.totalPrice);
 
       const options = {
         key: process.env.REACT_APP_RAZORPAY_KEY_ID || '',
@@ -50,14 +69,22 @@ const CheckoutPage = () => {
           try {
             // Verify payment
             const { data: verification } = await verifyPayment(response);
-            if (verification.verified) {
-              // Update order as paid
-              await payOrder(order._id, { ...response, status: 'COMPLETED' });
-              clearCart();
-              toast.success('Payment successful! 🎉');
-              navigate(`/order-success/${order._id}`);
+            if (!verification?.verified) {
+              throw new Error(verification?.message || 'Payment verification failed. If money was debited, please contact support with your payment id.');
             }
-          } catch (e) { toast.error('Payment verification failed'); }
+
+            // Update order as paid
+            await payOrder(order._id, { ...response, status: 'COMPLETED' });
+            clearCart();
+            toast.success('Payment successful!');
+            navigate(`/order-success/${order._id}`);
+          } catch (e) {
+            const msg = getErrorMessage(e);
+            setErrorMsg(msg);
+            toast.error(msg);
+          } finally {
+            setLoading(false);
+          }
         },
         prefill: { name: address.name, email: user.email, contact: address.phone },
         theme: { color: '#0369a1' },
@@ -65,7 +92,9 @@ const CheckoutPage = () => {
       };
 
       if (!window.Razorpay) {
-        toast.error('Razorpay not loaded. Please refresh.');
+        const msg = 'Payment service did not load. Please refresh the page and try again.';
+        setErrorMsg(msg);
+        toast.error(msg);
         setLoading(false);
         return;
       }
@@ -73,7 +102,9 @@ const CheckoutPage = () => {
       rzp.open();
       setLoading(false);
     } catch (e) {
-      toast.error(e.message);
+      const msg = getErrorMessage(e);
+      setErrorMsg(msg);
+      toast.error(msg);
       setLoading(false);
     }
   };
@@ -124,6 +155,11 @@ const CheckoutPage = () => {
           ) : (
             <div className="card p-6">
               <h2 className="font-display font-bold text-xl text-ocean-900 mb-5">Review & Pay</h2>
+              {errorMsg && (
+                <div className="bg-red-50 border border-red-200 text-red-700 rounded-xl p-4 mb-5 text-sm">
+                  {errorMsg}
+                </div>
+              )}
               <div className="bg-ocean-50 rounded-xl p-4 mb-6">
                 <h3 className="font-medium text-ocean-800 mb-2 flex items-center gap-2"><FiMapPin className="w-4 h-4 text-ocean-500" /> Delivering to:</h3>
                 <p className="text-ocean-600 text-sm">{address.name} • {address.phone}</p>

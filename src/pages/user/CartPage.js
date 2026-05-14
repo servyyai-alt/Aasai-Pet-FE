@@ -6,11 +6,11 @@ import { FiTrash2, FiMinus, FiPlus, FiShoppingBag, FiArrowLeft } from 'react-ico
 import { GiTropicalFish } from 'react-icons/gi';
 
 const CartPage = () => {
-  const { cartItems, removeFromCart, updateQuantity, cartTotal } = useCart();
+  const { cartItems, removeFromCart, updateQuantity, cartTotal, cartShippingTotal } = useCart();
   const { user } = useAuth();
   const navigate = useNavigate();
 
-  const shipping = cartTotal >= 999 ? 0 : 99;
+  const shipping = cartShippingTotal;
   const tax = Math.round(cartTotal * 0.18);
   const total = cartTotal + shipping + tax;
 
@@ -75,7 +75,6 @@ const CartPage = () => {
                 <span>Shipping</span>
                 <span className={shipping === 0 ? 'text-green-500 font-medium' : ''}>{shipping === 0 ? 'FREE' : `₹${shipping}`}</span>
               </div>
-              {shipping > 0 && <p className="text-xs text-ocean-400">Add ₹{(999 - cartTotal).toFixed(0)} more for free shipping</p>}
               <div className="flex justify-between text-ocean-600"><span>Tax (GST 18%)</span><span>₹{tax.toLocaleString()}</span></div>
               <div className="border-t border-ocean-100 pt-3 flex justify-between font-bold text-ocean-900 text-base">
                 <span>Total</span><span>₹{total.toLocaleString()}</span>
