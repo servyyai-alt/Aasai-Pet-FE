@@ -43,6 +43,7 @@ export const fetchMyOrders = () => api.get('/orders/myorders');
 export const fetchOrder = (id) => api.get(`/orders/${id}`);
 export const fetchAllOrders = (params) => api.get('/orders', { params });
 export const payOrder = (id, data) => api.put(`/orders/${id}/pay`, data);
+export const cancelOrder = (id, data) => api.put(`/orders/${id}/cancel`, data);
 export const updateOrderStatus = (id, data) => api.put(`/orders/${id}/status`, data);
 
 // Users

@@ -24,7 +24,15 @@ const CheckoutPage = () => {
   const tax = Math.round(cartTotal * 0.18);
   const totalPrice = cartTotal + shipping + tax;
 
-  const handleAddressChange = (e) => setAddress(a => ({ ...a, [e.target.name]: e.target.value }));
+  const handleAddressChange = (e) => {
+    const { name, value } = e.target;
+    if (name === 'pincode') {
+      const digitsOnly = String(value || '').replace(/\D/g, '').slice(0, 6);
+      setAddress(a => ({ ...a, [name]: digitsOnly }));
+      return;
+    }
+    setAddress(a => ({ ...a, [name]: value }));
+  };
 
   const getErrorMessage = (err) => {
     const raw = (err && typeof err === 'object' && 'message' in err) ? err.message : String(err || '');
@@ -34,6 +42,14 @@ const CheckoutPage = () => {
     return msg;
   };
 
+  const validateAddress = () => {
+    const requiredFields = ['name', 'phone', 'street', 'city', 'state', 'pincode'];
+    const missing = requiredFields.filter(f => !String(address?.[f] || '').trim());
+    if (missing.length > 0) return 'Please complete your shipping address (all fields are required).';
+    if (!/^\d{6}$/.test(String(address?.pincode || ''))) return 'Please enter a valid 6-digit pincode.';
+    return '';
+  };
+
   const handlePayment = async () => {
     setLoading(true);
     setErrorMsg('');
@@ -41,12 +57,8 @@ const CheckoutPage = () => {
       if (!cartItems || cartItems.length === 0) {
         throw new Error('Your cart is empty. Please add items before checkout.');
       }
-      const requiredFields = ['name', 'phone', 'street', 'city', 'state', 'pincode'];
-      const missing = requiredFields.filter(f => !String(address?.[f] || '').trim());
-      if (missing.length > 0) {
-        setStep(1);
-        throw new Error('Please complete your shipping address (all fields are required).');
-      }
+      const addressError = validateAddress();
+      if (addressError) { setStep(1); throw new Error(addressError); }
 
       // Create backend order
       const orderData = {
@@ -115,7 +127,7 @@ const CheckoutPage = () => {
     { name: 'street', label: 'Street Address', type: 'text', placeholder: '123 MG Road, Apartment 4B' },
     { name: 'city', label: 'City', type: 'text', placeholder: 'Chennai' },
     { name: 'state', label: 'State', type: 'text', placeholder: 'Tamil Nadu' },
-    { name: 'pincode', label: 'Pincode', type: 'text', placeholder: '600001' },
+    { name: 'pincode', label: 'Pincode', type: 'text', placeholder: '600001', inputMode: 'numeric', pattern: '\\d{6}', maxLength: 6 },
   ];
 
   return (
@@ -139,16 +151,33 @@ const CheckoutPage = () => {
           {step === 1 ? (
             <div className="card p-6">
               <h2 className="font-display font-bold text-xl text-ocean-900 mb-5">Shipping Address</h2>
+              {errorMsg && (
+                <div className="bg-red-50 border border-red-200 text-red-700 rounded-xl p-4 mb-5 text-sm">
+                  {errorMsg}
+                </div>
+              )}
               <div className="grid grid-cols-2 gap-4">
                 {addressFields.map(f => (
                   <div key={f.name} className={f.name === 'street' ? 'col-span-2' : ''}>
                     <label className="block text-sm font-medium text-ocean-700 mb-1">{f.label}</label>
                     <input type={f.type} name={f.name} placeholder={f.placeholder} value={address[f.name]} onChange={handleAddressChange}
-                      required className="input-field" />
+                      inputMode={f.inputMode}
+                      pattern={f.pattern}
+                      maxLength={f.maxLength}
+                      required
+                      className="input-field" />
                   </div>
                 ))}
               </div>
-              <button onClick={() => setStep(2)} className="btn-primary mt-6 flex items-center gap-2">
+              <button
+                onClick={() => {
+                  const msg = validateAddress();
+                  if (msg) { setErrorMsg(msg); toast.error(msg); return; }
+                  setErrorMsg('');
+                  setStep(2);
+                }}
+                className="btn-primary mt-6 flex items-center gap-2"
+              >
                 Continue to Payment <FiChevronRight />
               </button>
             </div>

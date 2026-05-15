@@ -506,14 +506,14 @@ const HomePage = () => {
         </section>
 
         {/* ─── QUICK PET-TYPE PILLS ─── */}
-        <section className="py-10 bg-white border-b border-gray-100">
+        <section className="py-20 bg-white border-b border-gray-100">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <p className="text-center text-gray-400 text-xs uppercase tracking-widest mb-6 font-semibold">
               Shop by Pet Type
             </p>
             <div className="flex flex-wrap justify-center gap-3">
               {QUICK_PETS.map(({ emoji, label, q }) => (
-                <Link
+                <div
                   key={label}
                   to={`/products?search=${q}`}
                   className="flex flex-col items-center gap-1.5 px-5 py-3 rounded-2xl border-2 border-gray-100 hover:border-violet-300 hover:bg-violet-50 transition-all duration-200 group min-w-[72px]"
@@ -524,14 +524,14 @@ const HomePage = () => {
                   <span className="text-xs font-semibold text-gray-500 group-hover:text-violet-600">
                     {label}
                   </span>
-                </Link>
+                </div>
               ))}
             </div>
           </div>
         </section>
 
         {/* ─── GALLERY ─── */}
-        <section className="py-24 bg-white">
+        <section className="py-12 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* Header Section */}
             <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
@@ -546,7 +546,7 @@ const HomePage = () => {
                   Gallery
                 </h2>
               </div>
-              <div className="flex items-center gap-3 text-gray-400 group cursor-default">
+              {/* <div className="flex items-center gap-3 text-gray-400 group cursor-default">
                 <span className="text-xs font-bold uppercase tracking-widest group-hover:text-pink-500 transition-colors">
                   Tap to explore resources
                 </span>
@@ -565,7 +565,7 @@ const HomePage = () => {
                     />
                   </svg>
                 </div>
-              </div>
+              </div> */}
             </div>
 
             {/* The Interactive Grid */}

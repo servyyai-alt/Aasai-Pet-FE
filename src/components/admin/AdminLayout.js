@@ -22,10 +22,10 @@ const AdminLayout = ({ children, title }) => {
             {title && <h1 className="font-display font-bold text-lg text-white hidden sm:block">{title}</h1>}
           </div>
           <div className="flex items-center gap-3">
-            <button className="p-2 rounded-xl hover:bg-white/10 transition-colors text-white/70 relative">
+            {/* <button className="p-2 rounded-xl hover:bg-white/10 transition-colors text-white/70 relative">
               <FiBell className="w-5 h-5" />
               <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-aqua-400 rounded-full" />
-            </button>
+            </button> */}
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 bg-aqua-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
                 {user?.name[0].toUpperCase()}

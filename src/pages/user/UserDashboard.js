@@ -103,9 +103,21 @@ const OrdersSection = () => {
         <div className="space-y-3">
           {orders.map(order => (
             <Link key={order._id} to={`/orders/${order._id}`} className="flex flex-wrap items-center gap-4 p-4 bg-ocean-50 rounded-xl hover:bg-ocean-100 transition-colors group">
+              <div className="w-12 h-12 rounded-xl overflow-hidden bg-white flex-shrink-0">
+                {order.orderItems?.[0]?.image ? (
+                  <img src={order.orderItems[0].image} alt={order.orderItems[0].name} className="w-full h-full object-cover" />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center bg-ocean-gradient">
+                    <GiTropicalFish className="w-6 h-6 text-white/50" />
+                  </div>
+                )}
+              </div>
               <div className="flex-1 min-w-0">
                 <p className="font-mono text-xs text-ocean-400">#{order._id.slice(-8).toUpperCase()}</p>
-                <p className="font-medium text-ocean-800 mt-0.5">{order.orderItems.length} item(s)</p>
+                <p className="font-medium text-ocean-800 mt-0.5 line-clamp-1">
+                  {order.orderItems?.[0]?.name || 'Order'}
+                  {order.orderItems?.length > 1 ? ` + ${order.orderItems.length - 1} more` : ''}
+                </p>
               </div>
               <span className={`badge px-2.5 py-1 rounded-lg text-xs font-medium ${statusColors[order.orderStatus]}`}>{order.orderStatus}</span>
               <div className="text-right">

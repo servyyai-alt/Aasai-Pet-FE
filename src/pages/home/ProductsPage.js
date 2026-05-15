@@ -117,14 +117,14 @@ const ProductsPage = () => {
               </div>
             </div>
 
-            {/* Price Range */}
+            {/* Price Range
             <div className="mb-5">
               <label className="block text-sm font-medium text-ocean-700 mb-2">Price Range (₹)</label>
               <div className="flex gap-2">
                 <input type="number" placeholder="Min" value={filters.minPrice} onChange={e => updateFilter('minPrice', e.target.value)} className="input-field text-sm py-2 w-1/2" />
                 <input type="number" placeholder="Max" value={filters.maxPrice} onChange={e => updateFilter('maxPrice', e.target.value)} className="input-field text-sm py-2 w-1/2" />
               </div>
-            </div>
+            </div> */}
 
             {/* Sort */}
             <div>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { fetchOrder } from '../../utils/api';
+import { cancelOrder, fetchOrder } from '../../utils/api';
+import toast from 'react-hot-toast';
 import { FiArrowLeft, FiPackage, FiTruck, FiCheckCircle, FiClock, FiXCircle } from 'react-icons/fi';
 import { GiTropicalFish } from 'react-icons/gi';
 
@@ -12,6 +13,8 @@ const OrderDetailPage = () => {
   const { id } = useParams();
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [cancelReason, setCancelReason] = useState('');
+  const [cancelling, setCancelling] = useState(false);
 
   useEffect(() => {
     fetchOrder(id).then(r => { setOrder(r.data); setLoading(false); }).catch(() => setLoading(false));
@@ -22,6 +25,7 @@ const OrderDetailPage = () => {
 
   const StatusIcon = statusIcons[order.orderStatus] || FiClock;
   const currentStep = statusSteps.indexOf(order.orderStatus);
+  const canCancel = Boolean(order.isPaid) && !['Shipped', 'Delivered', 'Cancelled'].includes(order.orderStatus);
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 animate-fade-in">
@@ -83,6 +87,47 @@ const OrderDetailPage = () => {
           </div>
         </div>
       </div>
+
+      {order.orderStatus === 'Cancelled' && order.cancelReason && (
+        <div className="card p-5 mb-6 border border-red-200 bg-red-50">
+          <h3 className="font-display font-bold text-red-700 mb-2">Order Cancelled</h3>
+          <p className="text-sm text-red-700">Reason: {order.cancelReason}</p>
+        </div>
+      )}
+
+      {canCancel && (
+        <div className="card p-5 mb-6">
+          <h3 className="font-display font-bold text-ocean-900 mb-2">Cancel Order</h3>
+          <p className="text-sm text-ocean-500 mb-3">You can cancel only before it is shipped.</p>
+          <textarea
+            rows={3}
+            className="input-field resize-none"
+            placeholder="Reason for cancellation (required)"
+            value={cancelReason}
+            onChange={(e) => setCancelReason(e.target.value)}
+          />
+          <button
+            disabled={cancelling}
+            onClick={async () => {
+              const reason = cancelReason.trim();
+              if (!reason) { toast.error('Please enter a cancel reason'); return; }
+              setCancelling(true);
+              try {
+                const { data } = await cancelOrder(order._id, { cancelReason: reason });
+                setOrder(data);
+                toast.success('Order cancelled');
+              } catch (e) {
+                toast.error(e.message);
+              } finally {
+                setCancelling(false);
+              }
+            }}
+            className="mt-3 px-4 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white font-semibold disabled:opacity-60"
+          >
+            {cancelling ? 'Cancelling...' : 'Cancel Order'}
+          </button>
+        </div>
+      )}
 
       {/* Items */}
       <div className="card p-5">
