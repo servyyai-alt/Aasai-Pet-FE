@@ -54,9 +54,9 @@ const Navbar = () => {
                 placeholder="Search fish, food, accessories..."
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
-                className="w-full pl-4 pr-10 py-2.5 border-2 border-ocean-100 rounded-xl focus:outline-none focus:border-ocean-400 text-sm bg-ocean-50"
+                className="w-full pl-4 pr-10 py-2.5 border-2 border-ocean-100 rounded-xl focus:outline-none focus:border-orange-400 text-sm bg-ocean-50"
               />
-              <button type="submit" className="absolute right-3 top-1/2 -translate-y-1/2 text-ocean-400 hover:text-ocean-600">
+              <button type="submit" className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-orange-600">
                 <FiSearch className="w-4 h-4" />
               </button>
             </div>
@@ -70,7 +70,7 @@ const Navbar = () => {
             <Link to="/cart" className="relative p-2 text-ocean-600 hover:text-ocean-400 transition-colors">
               <FiShoppingCart className="w-5 h-5" />
               {cartCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-aqua-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold animate-bounce">
+                <span className="absolute -top-1 -right-1 bg-orange-400 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold animate-bounce">
                   {cartCount}
                 </span>
               )}
@@ -79,8 +79,8 @@ const Navbar = () => {
             {/* User Menu */}
             {user ? (
               <div className="relative">
-                <button onClick={() => setDropdownOpen(!dropdownOpen)} className="flex items-center gap-2 bg-ocean-50 hover:bg-ocean-100 px-3 py-2 rounded-xl transition-colors">
-                  <div className="w-7 h-7 bg-ocean-gradient rounded-full flex items-center justify-center text-white text-sm font-bold">
+                <button onClick={() => setDropdownOpen(!dropdownOpen)} className="flex items-center gap-2 hover:bg-ocean-100 px-3 py-2 rounded-xl transition-colors bg-orange-50">
+                  <div className="w-7 h-7 bg-orange-400 rounded-full flex items-center justify-center text-white text-sm font-bold">
                     {user.name[0].toUpperCase()}
                   </div>
                   <span className="text-sm font-medium text-ocean-800 max-w-[80px] truncate">{user.name}</span>

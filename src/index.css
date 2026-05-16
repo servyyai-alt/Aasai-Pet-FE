@@ -27,9 +27,18 @@
     hover:from-ocean-700 hover:to-aqua-600 transition-all duration-300 shadow-lg hover:shadow-ocean-500/30
     hover:-translate-y-0.5 active:translate-y-0;
   }
+  .btn-primary-coral {
+    @apply bg-gradient-to-r from-coral-500 to-coral-400 text-white px-6 py-3 rounded-xl font-semibold
+    hover:from-coral-600 hover:to-coral-500 transition-all duration-300 shadow-lg hover:shadow-coral-500/30
+    hover:-translate-y-0.5 active:translate-y-0;
+  }
   .btn-secondary {
     @apply bg-white text-ocean-700 border-2 border-ocean-200 px-6 py-3 rounded-xl font-semibold
     hover:bg-ocean-50 hover:border-ocean-400 transition-all duration-300;
+  }
+  .btn-secondary-coral {
+    @apply bg-white text-coral-600 border-2 border-orange-200 px-6 py-3 rounded-xl font-semibold
+    hover:bg-orange-50 hover:border-coral-400 transition-all duration-300;
   }
   .btn-danger {
     @apply bg-red-500 text-white px-4 py-2 rounded-lg font-medium hover:bg-red-600 transition-colors;
@@ -41,11 +50,18 @@
     @apply w-full px-4 py-3 border-2 border-ocean-100 rounded-xl focus:outline-none focus:border-ocean-400
     bg-white text-ocean-900 placeholder-ocean-300 transition-colors;
   }
+  .input-field-coral {
+    @apply w-full px-4 py-3 border-2 border-orange-100 rounded-xl focus:outline-none focus:border-coral-400
+    bg-white text-orange-950 placeholder-orange-300 transition-colors;
+  }
   .badge {
     @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
   }
   .section-title {
     @apply font-display text-3xl font-bold text-ocean-900;
+  }
+  .section-title-coral {
+    @apply font-display text-3xl font-bold text-orange-950;
   }
   .nav-link {
     @apply text-ocean-700 hover:text-ocean-500 font-medium transition-colors;

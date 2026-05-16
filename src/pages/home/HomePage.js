@@ -15,6 +15,7 @@ import {
   FiRefreshCw,
   FiHeart,
 } from "react-icons/fi";
+import hero_pets from "../../assets/hero-pets.png";
 
 /* ─── Floating background pets ─── */
 const FLOATING_PETS = [
@@ -161,11 +162,8 @@ const CategoryCard = ({ cat }) => {
       to={`/products?category=${cat._id}`}
       className={`relative overflow-hidden text-white rounded-3xl p-6
         hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 group
-        ring-2 ring-transparent ${cfg.ring} border border-white/20`}
-      style={{
-        background:
-          "linear-gradient(135deg,#1a0533 0%,#2d1b69 30%,#0d3b5e 65%,#0b4535 100%)",
-      }}
+        ring-2 ring-transparent ${cfg.ring} border border-white/20 border-orange-300 bg-gradient-to-br ${cfg.gradient}`}
+      
     >
       <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-colors rounded-3xl" />
       <div className="relative z-10">
@@ -289,7 +287,7 @@ const HomePage = () => {
           className="relative min-h-[90vh] flex items-center overflow-hidden bg-ocean-gradient"
           style={{
             background:
-              "linear-gradient(135deg,#1a0533 0%,#2d1b69 30%,#0d3b5e 65%,#0b4535 100%)",
+              "linear-gradient(135deg, #e07b39 0%, #f0a04b 50%, #f6c177 100%)",
           }}
         >
           {/* floating pets bg */}
@@ -363,10 +361,10 @@ const HomePage = () => {
                 <div className="flex flex-wrap gap-3 mb-10">
                   <Link
                     to="/products"
-                    className="flex items-center gap-2 px-8 py-4 rounded-2xl font-bold text-purple-900 shadow-xl hover:-translate-y-1 transition-all duration-300"
-                    style={{
-                      background: "linear-gradient(135deg,#f9a8d4,#c4b5fd)",
-                    }}
+                    className="flex items-center gap-2 px-8 py-4 rounded-2xl font-bold text-purple-900 shadow-xl hover:-translate-y-1 transition-all duration-300 bg-white"
+                    // style={{
+                    //   background: "linear-gradient(135deg,#f9a8d4,#c4b5fd)",
+                    // }}
                   >
                     Shop Now <FiArrowRight className="w-5 h-5" />
                   </Link>
@@ -383,25 +381,20 @@ const HomePage = () => {
                   <StatBubble
                     value="500+"
                     label="Products"
-                    color="text-pink-300"
+                    color="text-white"
                   />
                   <StatBubble
                     value="15K+"
                     label="Happy Pets"
-                    color="text-violet-300"
+                    color="text-white"
                   />
-                  <StatBubble
-                    value="4.9★"
-                    label="Rating"
-                    color="text-sky-300"
-                  />
+                  <StatBubble value="4.9★" label="Rating" color="text-white" />
                 </div>
               </div>
 
               {/* RIGHT — pet orbit */}
-              <div className="hidden lg:flex justify-center items-center">
+              {/* <div className="hidden lg:flex justify-center items-center">
                 <div className="relative w-96 h-96">
-                  {/* glow rings */}
                   <div
                     className="absolute inset-0 rounded-full animate-pulse"
                     style={{
@@ -414,7 +407,6 @@ const HomePage = () => {
                     style={{ animationDuration: "18s" }}
                   />
 
-                  {/* centre */}
                   <div
                     className="absolute inset-16 rounded-full flex items-center justify-center text-7xl"
                     style={{
@@ -426,7 +418,6 @@ const HomePage = () => {
                     🐾
                   </div>
 
-                  {/* orbiting pets */}
                   {[
                     { emoji: "🐶", angle: 0 },
                     { emoji: "🐱", angle: 60 },
@@ -456,7 +447,12 @@ const HomePage = () => {
                     );
                   })}
                 </div>
-              </div>
+              </div> */}
+              <img
+                src={hero_pets}
+                alt="Happy pets"
+                className="w-full max-w-md mx-auto animate-fadeIn"
+              />
             </div>
           </div>
         </section>
@@ -658,8 +654,9 @@ const HomePage = () => {
         {/* ─── MARQUEE STRIP ─── */}
         <div
           className="py-4 overflow-hidden"
-          style={{
-            background: "linear-gradient(135deg,#7c3aed,#6d28d9,#db2777)",
+           style={{
+            background:
+              "linear-gradient(135deg, #e07b39 0%, #f0a04b 50%, #f6c177 100%)",
           }}
         >
           <div
@@ -730,58 +727,125 @@ const HomePage = () => {
 
         {/* ─── CTA BANNER ─── */}
         <section
-          className="py-24 relative overflow-hidden"
+          className="py-24 relative overflow-hidden bg-slate-950"
           style={{
-            background:
-              "linear-gradient(135deg,#1a0533 0%,#2d1b69 40%,#0d3b5e 100%)",
+            background: `linear-gradient(145deg, #FF9B45 0%, #E07B39 100%)`,
           }}
         >
-          {/* decorative bg pets */}
-          {["🐶", "🐱", "🐠", "🕊️", "🐰", "🐾"].map((e, i) => (
-            <span
-              key={i}
-              className="absolute text-5xl select-none pointer-events-none"
-              style={{
-                opacity: 0.07,
-                left: `${i * 17}%`,
-                top: `${20 + (i % 3) * 25}%`,
-                animation: `floatPet ${4 + i}s ease-in-out ${i * 0.5}s infinite alternate`,
-              }}
-            >
-              {e}
-            </span>
-          ))}
+          {/* 1. Large background image (for depth) */}
+          <div className="absolute inset-0 z-0">
+            <img
+              src="https://images.unsplash.com/photo-1543852786-1cf6624b9987?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              alt="Happy dog and cat together"
+              className="w-full h-full object-cover opacity-15 scale-105"
+            />
+            <div className="absolute inset-0 bg-[#E07B39]/50 mix-blend-overlay"></div>
+          </div>
 
-          <div className="relative z-10 max-w-3xl mx-auto text-center px-4">
-            <span className="text-6xl block mb-5">🐾</span>
-            <h2
-              className="font-display font-black text-white mb-4"
-              style={{ fontSize: "clamp(2rem,4.5vw,3.2rem)" }}
-            >
-              Your Pet Deserves the Very Best
-            </h2>
-            <p className="text-white/60 text-lg mb-10 leading-relaxed">
-              Join 15,000+ happy pet parents who trust PetMart for premium
-              nutrition, accessories, and expert-approved products.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                to="/products"
-                className="flex items-center justify-center gap-2 px-10 py-4 rounded-2xl font-bold text-purple-900 hover:-translate-y-1 transition-all duration-300 shadow-xl"
+          {/* 2. Floating Decorative Pet Icons (Improved Positioning/Animation) */}
+          {["🐶", "🐱", "🐠", "🕊️", "🐰", "🐾", "🦮", "🐱‍👤", "🐹", "🦴"].map(
+            (e, i) => (
+              <span
+                key={i}
+                className="absolute select-none pointer-events-none z-1"
                 style={{
-                  background: "linear-gradient(135deg,#f9a8d4,#c4b5fd)",
+                  fontSize: `${3 + (i % 3)}rem`,
+                  opacity: 0.15,
+                  left: `${(i * 12 + 5) % 100}%`,
+                  top: `${(i * 18 + 10) % 100}%`,
+                  transform: `rotate(${i * 15}deg)`,
+                  animation: `floatPet ${6 + i}s ease-in-out ${i * 0.4}s infinite alternate`,
                 }}
               >
-                <FiHeart className="w-5 h-5" /> Shop All Pets
-              </Link>
-              <Link
-                to="/register"
-                className="flex items-center justify-center gap-2 px-10 py-4 rounded-2xl font-bold text-white border border-white/30 bg-white/10 backdrop-blur hover:bg-white/20 transition-all duration-300"
+                {e}
+              </span>
+            ),
+          )}
+
+          {/* 3. Integrated Subject Images (The "Pop" Elements) */}
+
+          {/* Front Left Cat (Candid and Cute) */}
+          <div className="absolute -left-12 -bottom-28 z-20 w-80 h-auto select-none pointer-events-none scale-x-[-1] animate-fade-in-up">
+            <img
+              src="https://images.unsplash.com/photo-1560714859-99f57c6314f2?q=80&w=600&auto=format&fit=crop"
+              alt="Smiling happy orange cat"
+              className="mask-fade-bottom scale-x-[-1]"
+            />
+          </div>
+
+          {/* Back Right Dog (Alert and Loving) */}
+          <div className="absolute -right-24 bottom-10 z-0 w-[420px] h-auto select-none pointer-events-none animate-fade-in-down delay-150">
+            <img
+              src={hero_pets}
+              alt="Golden retriever puppy sitting down"
+              className="opacity-70 contrast-125"
+            />
+          </div>
+
+          {/* 4. The Content (Z-indexed above images) */}
+          <div className="relative z-30 max-w-4xl mx-auto px-4">
+            {/* Main Content Card */}
+            <div className="text-center backdrop-blur-sm bg-white/5 border border-white/10 p-12 rounded-[40px] shadow-[0_25px_50px_-12px_rgba(224,123,57,0.4)]">
+              <span className="text-6xl block mb-6 animate-pulse">🐾</span>
+
+              <h2
+                className="font-display font-black text-white mb-6 leading-tight drop-shadow-lg"
+                style={{ fontSize: "clamp(2.5rem,5.5vw,4.2rem)" }}
               >
-                Create Free Account
-              </Link>
+                Your Pet Deserves{" "}
+                <span className="text-orange-950/70">the Very Best</span>
+              </h2>
+
+              <p className="max-w-2xl mx-auto text-orange-950 text-xl font-medium mb-12 leading-relaxed opacity-90">
+                Join{" "}
+                <strong className="text-white">
+                  15,000+ happy pet parents
+                </strong>{" "}
+                who trust PetMart for premium nutrition, accessories, and
+                expert-approved products.
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-5 justify-center items-center">
+                <Link
+                  to="/products"
+                  className="group flex items-center justify-center gap-2.5 px-12 py-5 rounded-2xl font-extrabold text-xl text-[#E07B39] hover:text-white transition-all duration-300 shadow-[0_10px_20px_rgba(224,123,57,0.5)] bg-white hover:bg-orange-600 scale-100 hover:scale-105 active:scale-95"
+                >
+                  <FiHeart className="w-6 h-6 group-hover:fill-white" /> Shop
+                  All Pets
+                </Link>
+
+                <Link
+                  to="/register"
+                  className="flex items-center justify-center gap-2.5 px-12 py-5 rounded-2xl font-extrabold text-white border-2 border-white/60 bg-white/10 backdrop-blur hover:bg-white/30 hover:border-white transition-all duration-300"
+                >
+                  Create Free Account
+                </Link>
+              </div>
             </div>
           </div>
+
+          {/* Tailwind and custom CSS animation support */}
+          <style>{`
+        @keyframes floatPet {
+          0% { transform: translateY(0px) rotate(0deg); }
+          50% { transform: translateY(-10px) rotate(5deg); }
+          100% { transform: translateY(0px) rotate(0deg); }
+        }
+        @keyframes fade-in-up {
+          from { opacity: 0; transform: translateY(30px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fade-in-down {
+          from { opacity: 0; transform: translateY(-30px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in-up { animation: fade-in-up 1s ease-out; }
+        .animate-fade-in-down { animation: fade-in-down 1s ease-out; }
+        .mask-fade-bottom {
+          -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+          mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+        }
+      `}</style>
         </section>
       </div>
     </>
